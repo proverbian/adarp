@@ -80,4 +80,5 @@ App::down(function()
 |
 */
 
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
 require app_path().'/filters.php';

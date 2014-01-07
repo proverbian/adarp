@@ -4,27 +4,26 @@ use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
+	protected $table = 'adarp_users';
+    public $timestamps = false;
+    protected $fillable = array('username', 'password','activation_code','token'); //set fields to activate here
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
+	public static function validate($input) {
+		  $rules = array(
+                'email'     => 'Required|Between:3,64|Email|unique:adarp_users'
+        );
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password');
+        return Validator::make($input, $rules);
+	}
 
-	/**
-	 * Get the unique identifier for the user.
-	 *
-	 * @return mixed
-	 */
-	public function getAuthIdentifier()
+	public  function verify($key) {
+		//return $query->where('id','=','27276');
+	}
+		
+	
+	//take note : all these function below are required for UserInterFace and RemindableInterface	
+
+		public function getAuthIdentifier()
 	{
 		return $this->getKey();
 	}
@@ -49,4 +48,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->email;
 	}
 
+	
+
 }
+
+?>
