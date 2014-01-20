@@ -10,13 +10,18 @@ class RegisterController extends BaseController {
 
 	public function post_index() 
 	{
-
 		 $rules = array(
-     	  'email'=> 'Required|Between:3,64|Email|unique:adarp_users'
+     	  'email'=> 'Required|Between:3,64|Email|unique:adarp_users',
+     	  'email_confirmation'=> 'Required'
    		  );
  
  	 $v =  Users::validate(Input::all(), $rules);
-
+ 	 if (Input::get('email') != Input::get('email_confirmation')) {
+ 	 
+ 	 	return Redirect::to('register')->with('email_not_same',true);
+ 	 		dd('test');
+ 	 }
+ 	 dd('we');
 	if ($v->passes()) :
 		$check = Users::where('username','=',Input::get('email'))
 				//->where('activated','<>',1)
