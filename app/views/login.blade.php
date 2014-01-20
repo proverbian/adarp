@@ -1,6 +1,12 @@
 @extends('layout.master')
 @section('content')
 
+    @if (Session::has('login_errors'))
+        <span class="error">Email Already Used, Please Contact Support <br />
+            Forgot Password? Click <a href="#">Here</a> 
+        </span>
+    @endif
+
 <div class="container login">
     <div class="row">
         <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">

@@ -17,18 +17,20 @@
 
 
 
-Route::get('/',function()
-{
-	//$posts = Posts::all();
-	return View::make('layout.default');
-	//->with('posts',$posts);
-});
 
 
 Route::group(array('before'=>'auth'), function () 
 // All auth sessions must be inside here |
 // This one eliminates bunch of Auth checks lines.
 { 		
+
+	Route::get('/',function()
+	{
+		//$posts = Posts::all();
+		return View::make('layout.default');
+		//->with('posts',$posts);
+	});
+
 	Route::get('dashboard',function()
 	{
 		return View::make('user.dashboard');

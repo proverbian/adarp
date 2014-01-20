@@ -14,7 +14,7 @@
     @endif
 
      @if (Session::has('success_validation'))
-        <span class="">Succesfully Validated,  Click Here to Login!</span>
+        <span class="">Succesfully Validated!</span>
     @endif
 
      @if (Session::has('validation_expired'))

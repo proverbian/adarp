@@ -62,62 +62,14 @@ class ProfileController extends Adarp {
     	//return $this->getIndex();
     }
 
-    public function postUpdatepass()
-    {
-    	
-    	$to_validate =  array(
-    		'password' => 'required|min:8|confirmed',
-    		'old_password' => 'required|min:8'
-	    	);
-	    	//die(var_dump(Input::all()));
-	    $data =	array( //title and header caption
-	    	  	 	'title'=>'Adarp Settings',
-	    	  	 	'header'=>'Adarp Settings'
-    	  	 	);	
-		$validator = Validator::make(Input::all(),$to_validate);
- 			
- 		$user = User::find(Input::get('user_id'));
- 		
-		if ($validator->fails()): // If Validator Fails - show errors
-			$messages = $validator->messages(); //get msg error
-			$msg =  $messages->first('password');
-	
-			Session::set('failed_changepass',true); //write a session- false
-			Session::set('errors',$msg);
-			return Redirect::to('profile/settings');
-			//return View::make('user.settings')
-    	  	// 	->with('msg',$msg)
-    	  	// 	->with('data',$data);
-		else:
-			
-			if (!Hash::check(Input::get('old_password'),$user->password)):
-	 			return View::make('user.settings')
-	 			->with('msg','Old Password not correct!')
-	 			->with('data',$data);
- 			endif;
-
-			Session::set('success_changepass',true); //write session true
-			
-			$user = User::find(Input::get('user_id')); //get user id and query user info
-
-			$user->password = Hash::make(Input::get('password')); //change password
-			$user->save(); //save
-
-			$data = $this->getProfileFields2();
-			return View::make('profile.profile')
-    	  	 ->with('newuser',true)
-          	 ->with('value',$data);
-		endif;
-    	
-    }
-    public function postChangepass() {
+    public function post_changepass() {
+    	dd('test');
+   
     	$to_validate =  array(
     		'password' => 'required|min:8|confirmed'
 	    	);
-
-
-	    	//die(var_dump(Input::all()));
-		$validator = Validator::make(Input::all('password'),$to_validate);
+	    	
+		$validator = Validator::make(Input::all('password'),$to_validate); //BUTOL!!!!!!! hahahahha
  
 		if ($validator->fails()): // If Validator Fails - show errors
 			$messages = $validator->messages(); //get msg error
@@ -142,14 +94,14 @@ class ProfileController extends Adarp {
     	
     }
 
-    public function getSettings() 
+    public function get_settings() 
     {
-    	$id = Auth::user()->id;
-    	$checkpass = User::find($id);
 
-    	if (empty($checkpass->password)) {
-    		return View::make('user.nopass');
-    	}
+    	$id = Auth::user()->id;
+    	
+    		
+
+    	$user = User::find($id);
 
     	$data = array(
 	    	'title' => 'Settings',
@@ -157,7 +109,41 @@ class ProfileController extends Adarp {
 	    	);
     	return View::make('user.settings')
     	//return View::make('change_password')
+    	->with('user',$user)
     	->with('data',$data);
+    }
+
+    public function post_updatepass()
+    {
+ 	
+ 	 $data =	array( //title and header caption
+	    	  	 	'title'=>'Adarp Settings',
+	    	  	 	'header'=>'Adarp Settings'
+    	  	 	);	
+
+    	$rules =  array(
+    		'password' => 'required|min:8|confirmed',
+    		'password_confirmation' => 'required|min:8'
+	    	);
+
+
+    	$validator = Users::validate(Input::all(),$rules);
+    	
+    	//Session::flush();
+    	if ($validator->passes()) {
+    		$user = User::find(Input::get('user_id'));
+    		if (Hash::check(Input::get('old_password'), $user->password)) {
+    			$user->password = Hash::make(Input::get('password')); //change password
+				$user->save(); //save		
+    			return Redirect::to('profile/settings')->withErrors(array('success'=>'Successfully Updated Password'));;
+    		}else{
+    			return Redirect::to('profile/settings')->withErrors(array('errors'=>'Old Password Incorrect'));
+    		}
+    	}else{ //if validator fails
+    		return Redirect::to('profile/settings')->withErrors($validator->getMessageBag());
+    	}
+
+   	
     }
     
     public function postSetpass()

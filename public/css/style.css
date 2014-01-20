@@ -151,4 +151,42 @@ opacity: 0.9;
 .border-bottom { border-bottom:solid thin #000;opacity: 0.2;
 -moz-opacity: 0.2;
 filter:alpha(opacity=5);} 
+
+
+
+
+
+
+.frmlabel .lbl {
+	font-size:25px;
+	font-weight: bold;
+}
+
+.frmlabel .notice {
+	font-size:11px;
+	background-color: #F6D08B;
+	font-style:italic;
+	opacity: 0.5;
+	-moz-opacity: 0.5;
+	filter:alpha(opacity=5);
+
+	
+}
+
+.pass_frame {
+	background-color: rgba(0, 0, 0, 0.09);
+	color: #2B1A6E;
+	border-radius: 10px;
+	padding: 20px;
+}
+
+.pass_icon {
+	float:left;
+	margin-right: 20px;
+	background:url('../img/pass.png') no-repeat center; ;
+	height:100px;
+	width:100px;
+}
+
+
 }

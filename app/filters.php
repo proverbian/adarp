@@ -37,9 +37,17 @@ Route::filter('admin',function()
 {
 	if (!Auth::user()->is_admin) return View::make('admin.not_allowed');
 });
+
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('login'); 
+	if (Auth::guest()) {
+		 return Redirect::guest('login');
+	}else{
+		if (!Auth::user()->password) { //if use has no password set (eg: facebook login)
+			return View::make('profile.change_password');	
+		}
+		//return View::make('layout.default');
+	}
 });
 
 

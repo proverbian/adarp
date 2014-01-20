@@ -13,6 +13,16 @@ class Users extends Eloquent implements UserInterface, RemindableInterface {
 	public function profile () {
 		return $this->HasOne('GetProfile','user_id');
 	}
+
+	public static function validate($all,$rules) 
+	{
+		return Validator::make($all,$rules);	
+	}
+
+	public static function update_pass() 
+	{
+		
+	}
 	
 
 	//Auth::

@@ -10,12 +10,12 @@ class RegisterController extends BaseController {
 
 	public function post_index() 
 	{
-		 $rules = array(
-       'email'=> 'Required|Between:3,64|Email|unique:adarp_users'
-     );
-   
- 	 $v =  Validator::make(Input::all(), $rules);
 
+		 $rules = array(
+     	  'email'=> 'Required|Between:3,64|Email|unique:adarp_users'
+   		  );
+ 
+ 	 $v =  Users::validate(Input::all(), $rules);
 
 	if ($v->passes()) :
 		$check = Users::where('username','=',Input::get('email'))
@@ -28,7 +28,7 @@ class RegisterController extends BaseController {
 
 		$users = new Users;
 		$users->username = Input::get('email');
-		$users->password = Hash::make(Input::get('email'));
+		$users->password = Hash::make(Input::get('password'));
 		$users->activation_code = $activation_code;
 		$users->save();
 
@@ -54,35 +54,30 @@ class RegisterController extends BaseController {
 	public function get_verify($key)
 	{
 
-		dd($key);
+		
 		//var_dump(Session::all());
-		$v = User::where('activation_code','=',$key)
+		$v = Users::where('activation_code','=',$key)
 		//->where('token','=',Session::get('_token')) //session from chrome and safari are different
 		//->where('activated','',1)
 		->first();
-
+		
 		//	echo '<pre>';print_r($v);echo '</pre>';
 		//die();
-		if (count($v)==1):
-			$v->activated = 1;
-			$v->save();
+		if ($v):
+		$v->activated = 1;
+		$v->save();
 			
 		//Login User: and prompt to change password:
-		$user = User::find($v->id);
-		Auth::login($user);
+		
+		Auth::login($v);
 
 		//Session::put('change_pass',false);
 
 
-		if (Session::get('change_pass') == false) {
+		if (!Auth::user()->password) {
 			return View::make('profile.change_password');
-		}else{
-			echo  'we';
 		}
 			
-		die();
-
-
 		return Redirect::to('register/notifications')
 			->with('success_validation',true);
 		else:
@@ -112,6 +107,7 @@ class RegisterController extends BaseController {
 
 	public function post_login()
 	{
+		Session::flush();
 			
 	$userdata = array(
 		'username' => Input::get('username'),
@@ -159,6 +155,27 @@ class RegisterController extends BaseController {
 				->update(array('sent_at'=>date('Y-m-d h:i:s')));	
 				echo 'Mail sent to ' .$user->id. ' - ' .$user->username.'\n';
 		endif;
+	}
+
+	public function post_setpass() 
+	{
+			
+		$rules = array(
+				'password'  =>'Required|AlphaNum|Between:4,8|Confirmed',
+				'password_confirmation'=>'Required|AlphaNum|Between:4,8'
+		);	
+		$validator = Users::validate(Input::all(),$rules);
+	
+		if ($validator->passes()) {
+			$user = Users::find(Input::get('user_id'));
+			$user->password = Hash::make(Input::get('password'));
+			$user->save();
+			return Redirect::to('/');
+		}else{
+
+			return Redirect::to('/')->withErrors($validator->getMessageBag());
+			//dd($error);
+		}
 	}
 	
 

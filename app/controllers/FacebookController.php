@@ -23,6 +23,7 @@ class FacebookController extends Controller {
 	public function get_loginfbcallback()
 	{
 
+		
 		$code = Input::get('code');
 	    if (strlen($code) == 0) return Redirect::to('/')->with('message', 'There was an error communicating with Facebook');
 	 
@@ -37,9 +38,15 @@ class FacebookController extends Controller {
 	    $me = $facebook->api('/'.$uid); //this solveds the bug (access token bug)
 
 	 	$user_check = Users::whereUid($uid)->first();
+	 	$email_check = Users::where('username',$me['email'])->first();
 
+	 	
 	 	if (empty($user_check)) {
 	 	
+
+	 	if ($email_check) {
+	 		return Redirect::to('login')->with('login_errors',true);
+	 	}
 
 	 		$user = new Users;
 	 		$user->uid = $uid;
