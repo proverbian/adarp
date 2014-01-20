@@ -4,7 +4,9 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.0.*"
+		"laravel/framework": "4.0.*",
+		"monolog/monolog": "1.2.*",
+		"facebook/php-sdk": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

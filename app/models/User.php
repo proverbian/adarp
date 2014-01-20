@@ -5,16 +5,16 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'adarp_users';
-    public $timestamps = false;
-    protected $fillable = array('username', 'password','activation_code','token'); //set fields to activate here
+    
+    protected $softDelete = true;
+    protected $fillable = array('username','id', 'password','activation_code','token'); //set fields to activate here
 
-	public static function validate($input) {
-		  $rules = array(
-                'email'     => 'Required|Between:3,64|Email|unique:adarp_users'
-        );
 
-        return Validator::make($input, $rules);
-	}
+    public function usermeta() 
+    {
+    	return $this->hasMany('Usermeta','user_id');
+    }
+
 
 	public  function verify($key) {
 		//return $query->where('id','=','27276');

@@ -1,0 +1,93 @@
+Array
+(
+    [id] => 1043742903
+    [name] => Psy Duck
+    [first_name] => Psy
+    [last_name] => Duck
+    [link] => https://www.facebook.com/impang
+    [username] => impang
+    [hometown] => Array
+        (
+            [id] => 111562265539190
+            [name] => Dauis, Bohol, Philippines
+        )
+
+    [location] => Array
+        (
+            [id] => 105448822822691
+            [name] => Dumaguete City
+        )
+
+    [work] => Array
+        (
+            [0] => Array
+                (
+                    [employer] => Array
+                        (
+                            [id] => 112279065450019
+                            [name] => Foundation University
+                        )
+
+                    [with] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [id] => 1222637665
+                                    [name] => Lougie Quisel
+                                )
+
+                        )
+
+                    [from] => Array
+                        (
+                            [id] => 1222637665
+                            [name] => Lougie Quisel
+                        )
+
+                )
+
+        )
+
+    [favorite_athletes] => Array
+        (
+            [0] => Array
+                (
+                    [id] => 207150970887
+                    [name] => Manny Pacquiao
+                )
+
+        )
+
+    [education] => Array
+        (
+            [0] => Array
+                (
+                    [school] => Array
+                        (
+                            [id] => 239531246108679
+                            [name] => Dcpnhs
+                        )
+
+                    [type] => High School
+                )
+
+            [1] => Array
+                (
+                    [school] => Array
+                        (
+                            [id] => 112279065450019
+                            [name] => Foundation University
+                        )
+
+                    [type] => College
+                )
+
+        )
+
+    [gender] => male
+    [email] => proverbian@gmail.com
+    [timezone] => 8
+    [locale] => en_US
+    [verified] => 1
+    [updated_time] => 2013-08-19T04:41:15+0000
+)

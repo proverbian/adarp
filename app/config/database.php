@@ -83,6 +83,17 @@ return array(
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
 		),
+		'alumni_registrar' => array(
+			'driver'    => 'mysql',
+			'host'      => '172.16.19.3',
+			'database'  => 'kiosk',
+			'username'  => 'superman',
+			'password'  => 'power',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		),
+
 
 		'mysqlxxx' => array(
 			'driver'    => 'mysql',
@@ -96,10 +107,10 @@ return array(
 		),
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => 'localhost',
+			'host'      => '172.16.19.2',
 			'database'  => 'adarp',
-			'username'  => 'root',
-			'password'  => 'f0unders',
+			'username'  => 'systemuser',
+			'password'  => '1nd1cat0r',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

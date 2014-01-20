@@ -1,10 +1,35 @@
 .req_field {
 	color:red
 }
+.update-header a{ margin:20px 0;float:right; }
 body {
-	padding-top:40px;
+	padding-top:60px;
 	position: relative;
+	background-color:#f8f9fa;
 }
+.well-sm h4 { line-height:8px; }
+/*
+	start user/dashboard
+*/
+#page-wrapper {
+	margin:0 auto;
+	min-height:200px;width:90%;
+}
+
+.change_password { margin:0 auto;width:960px;}
+
+/*
+	end user/dashboard
+*/
+
+/* Login */
+ .fb {    padding:10px 0 0 0 }
+
+/* End Login */
+
+.select-box { width:200px; }
+.center-text { text-align:center; }
+
 #main {
  margin: 0 auto !important;
  float: none !important;
@@ -99,4 +124,31 @@ body {
 
 .post_content  p {
   clear:left;
+}
+
+.center {
+	margin:0 auto;
+ 	float:none;
+}
+.reg {
+	margin-top:30px;
+}
+.login {
+	margin-top:50px;
+}
+
+.panel-default {
+opacity: 0.9;
+}
+.form-group.last { margin-bottom:0px; }
+.rowx {border:solid thin}
+.center {text-align: center}
+.right {text-align:right;}
+.text-left{text-align:left;}
+.btn-primary{width:150px;height:40px}
+#search_person  { width:450px;height:70px}
+.search_person, #search_person { font-size:30px;text-align:center;}
+.border-bottom { border-bottom:solid thin #000;opacity: 0.2;
+-moz-opacity: 0.2;
+filter:alpha(opacity=5);} 
 }

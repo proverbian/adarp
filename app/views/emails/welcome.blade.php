@@ -9,7 +9,7 @@
         <div>
             {{ $detail }}
         </div>
-        <div><a href="{{URL::to('verify')}}/{{$activation_code}}">{{ $activation_code }}</a></div>
+        <div><a href="{{URL::to('register/verify')}}/{{$activation_code}}">{{ $activation_code }}</a></div>
         <div>{{ $name}} </div>
     </body>
 </html>

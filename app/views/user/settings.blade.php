@@ -8,16 +8,7 @@
 
 @section('content')
 
-@if (Session::has('success_changepass'))
-        <span class="error"> {{ @$msg }} </span>
-        <br />
- @endif
 
-
-@if (Session::has('failed_changepass'))
-	
-        <span class="error"> {{ Session::get('errors') }} </span>
- @endif
 
 {{ Form::open(array('url'=>'profile/updatepass','method'=>'post'))}}
 {{ Form::hidden('user_id',Auth::user()->id) }}
@@ -25,28 +16,48 @@
 
 
 
-<div>
+<div class="container">
+	<div class="row">
+		
+			@if (Session::has('success_changepass'))
+ 		      <div class="col-md-12 alert alert-warning"> {{ @$msg }} </div>
+   			@endif
+   		</div>
 
-<table class="row">
-<th colspan="2">Change password</th>
-<tr> 
-	 <th>Old Password</th>
-	 <td>{{ Form::password('old_password') }} </td>
-</tr>
-<tr>
-	<th>New Password</th>
-	<td> {{ Form::password('password') }} </td>
-</tr>
+   		<div class="row">
+			@if (Session::has('failed_changepass'))
+			      <div class="col-md-12 alert alert-warning">
+			       	{{ Session::get('errors') }} 
+			      </div>
+			 @endif
+		</div>
 
-<tr>
-	<th>Confirm New Password</th>
-	<td> {{ Form::password('password_confirmation') }} </td>
-</tr>
-<tr> 
-	<th></th>
-	<td> {{ Form::submit('submit') }} </tr>
-</tr>
-
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="panel panel-default">
+				<div class="panel-body text-center"> <h3> Change Password </h3>
+					 <div class="row form-group">
+						<label class="control-label col-md-4">Old Password</label>
+						 <div class="col-md-8">
+							{{ Form::password('old_password',array('class'=>'form-control')) }} 
+					  	 </div>
+					 </div>
+					  <div class="row form-group">
+						<label class="control-label col-md-4">Old Password</label>
+						<div class="col-md-8">
+							{{ Form::password('password_confirmation',array('class'=>'form-control')) }}
+						</div>
+					</div>
+					 <div class="row form-group">
+						<div class="col-md-4"></div>
+						<div class="col-md-8">
+							{{ Form::submit('submit',array('class'=>'btn btn-primary')) }}
+						</div>
+					</div>
+				</div>
+			<div>
+		</div>
+	</div>
 </div>
 
 {{ Form::close() }}

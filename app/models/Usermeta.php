@@ -16,9 +16,7 @@ class Usermeta extends Eloquent {
 		return $all;
 	}
 
-	public function test() {
-		return 'we';
-	}
+
 }
 
 ?>

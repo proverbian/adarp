@@ -7,21 +7,15 @@
 @stop
 @section('content')
 
-<div class="wrapper">
+<div class="container">
 
-@if (Auth::check()) 
-	Welcome {{ Auth::user()->username }} !
-
-	<a href="{{ URL::to('registered')}}">Registered Users</a> 
-
-	  @if (Session::has('already_registered'))
-	  	<br />
-        <span class="error">You are already Registered.</span>
-    @endif
-@else
-	{{  Redirect::to('login'); }}
-@endif
-
+<div class="row">
+	<div class="col-md-5">
+		<div class="wrapper">
+			tests
+		</div>
+	</div>
+	
 </div>
-
+</div>
 @stop

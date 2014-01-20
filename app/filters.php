@@ -33,9 +33,13 @@ App::after(function($request, $response)
 |
 */
 
+Route::filter('admin',function()
+{
+	if (!Auth::user()->is_admin) return View::make('admin.not_allowed');
+});
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest('login');
+	if (Auth::guest()) return Redirect::guest('login'); 
 });
 
 

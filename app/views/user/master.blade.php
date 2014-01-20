@@ -10,20 +10,26 @@
 
     <!-- Bootstrap core CSS -->
     {{ HTML::style('css/bootstrap.css') }}
-    {{ HTML::style('css/sb-admin.css') }}
-    {{ HTML::style('css/font-awesome/css/font-awesome.min.css') }}
-    {{ HTML::style('css/morris-0.4.3.min.css') }}
-    
- 
+    {{ HTML::style('css/style.css') }}
+   
+   {{ HTML::style('css/datepicker/ui-lightness/jquery-ui-1.10.3.custom.min.css') }}
+
+    <?php
+      /* $facebook = new Facebook(Config::get('facebook'));
+       $uid = $facebook->getUser();
+       if (!empty($uid)) {
+         $fbdata = $facebook->api('/'.$uid); //this solveds the bug (access token bug) 
+       }*/
+    ?>
    
   </head>
 
   <body>
 
-    <div id="wrapper">
 
       <!-- Sidebar -->
       <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -39,26 +45,6 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-          <ul class="nav navbar-nav side-nav">
-            <li class="active"><a href="{{url('dashboard')}}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-            <li><a href="{{url('profile')}}"><i class="fa fa-bar-chart-o"></i> Profile</a></li>
-            <li><a href="{{url('profile/settings')}}"><i class="fa fa-wrench"></i> Settings</a></li>
-            <li><a href="tables.html"><i class="fa fa-table"></i> Tables</a></li>
-            <li><a href="news/edit"><i class="fa fa-edit"></i> Posts</a></li>
-            <li><a href="typography.html"><i class="fa fa-font"></i> Typography</a></li>
-            <li><a href="bootstrap-elements.html"><i class="fa fa-desktop"></i> Bootstrap Elements</a></li>
-            <li><a href="blank-page.html"><i class="fa fa-file"></i> Blank Page</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Dropdown <b class="caret"></b></a>0. 
-              <ul class="dropdown-menu">
-                <li><a href="#">Dropdown Item</a></li>
-                <li><a href="#">Another Item</a></li>
-                <li><a href="#">Third Item</a></li>
-                <li><a href="#">Last Item</a></li>
-              </ul>
-            </li>
-          </ul>
-
           <ul class="nav navbar-nav navbar-right navbar-user">
             <li class="dropdown messages-dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span class="badge">7</span> <b class="caret"></b></a>
@@ -108,36 +94,51 @@
               </ul>
             </li>
               <li class="dropdown user-dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <img height="20px" width="20px" src="https://graph.facebook.com/{{ Auth::user()->uid }}/picture?type=small"> 
                   {{ Auth::user()->username }} 
+                 
                  <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="{{url('profile')}}"><i class="fa fa-user"></i> Profile</a></li>
                   <li><a href="#"><i class="fa fa-envelope"></i> Inbox <span class="badge">7</span></a></li>
-                  <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
+                  <li><a href="profile/settings"><i class="fa fa-gear"></i> Settings</a></li>
+                  @if (Auth::user()->is_admin)
+                      <li><i class="fa fa-gear"></i><a href="{{{ URL::to('admin') }}}">Admin</a></li>
+                  @endif
                   <li class="divider"></li>
                   <li><a href="{{url('logout')}}"><i class="fa fa-power-off"></i> Log Out</a></li>
                 </ul>
               </li>
           </ul>
         </div><!-- /.navbar-collapse -->
+        </div>
       </nav>
 
      <div id="page-wrapper">
           @yield('content')
     </div>
     <!-- Bootstrap core JavaScript -->
-     {{ HTML::script('js/jquery-2.0.3.min.js') }}
-     {{ HTML::script('js/bootstrap.js') }}
+    {{ HTML::script('js/jquery-1.9.1.js') }}
+    {{ HTML::script('js/jquery-ui.js') }}
+
+    {{ HTML::script('js/bootstrap.js') }}
 
 
-     {{ HTML::script('js/raphael-min.js') }}
-     {{ HTML::script('js/morris-0.4.3.min.js') }}
-     {{ HTML::script('js/morris/chart-data-morris.js') }}
-     {{ HTML::script('js/tablesorter/jquery.tablesorter.js') }}
-     {{ HTML::script('js/tablesorter/tables.js') }}
-   
+  <script>
 
+   $(function() {
+     $( "#datepicker" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat: "yy-mm-dd",
+      yearRange: '1901:2013',
+      showButtonPanel: true
+    });
+ 
+  });
+
+  </script>
 
   </body>
 </html>

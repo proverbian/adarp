@@ -10,46 +10,43 @@
 @endif
 
 
-{{ Form::open(array('url'=>'homecoming/register')) }}
-
 <head>
 	<link rel="stylesheet" href="css/jquery-ui.css">
 	<script src="js/jquery-1.9.1.js"></script>
 	<script src="js/jquery-ui.js"></script>
-
-	<style>
-	.ui-autocomplete-loading {
-		background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
-	}
-	</style>
-	<script>
-
-
+	<script type="text/javascript">
 
 	$(function() {
-		$( "#search_person" ).autocomplete({
+		$( "#search_person" ).autocomplete({	
       source: "homecoming/json",
       minLength: 2,
       select: function( event, ui ) {
-        $("#fname").val(ui.item.fname);
-        $("#mname").val(ui.item.mname);
-        $("#lname").val(ui.item.lname);
-        $("#user_id").val(ui.item.user_id);
-        $(this).val("");
-  			return false;
+       // $("#fname").val(ui.item.fname);
+       // $("#mname").val(ui.item.mname);
+       // $("#lname").val(ui.item.lname);
+       // $("#user_id").val(ui.item.user_id);
+       // $(this).val("");
+      // alert(ui.item.user_id);
+  			window.location = 'homecoming/user/'+ui.item.user_id;
+  		//	return false;
       }
     });
   });
+
+
 	</script>
 </head>
 <body>
-
-<div class="ui-widget">
-	<label for="search_person">Search: </label>
-	<input id="search_person">
+<div class="row attendance">
+	<div class="col-sm-offset-2 col-md-8 col-sm-8 col-xs-offset-1">
+		<input id="search_person" style="text-align:center" class="form-control" placeholder="Search">
+	</div>
 </div>
 
+
 {{ Form::hidden('user_id','',array('id'=>'user_id')) }}
+
+<!-- 
 
 <table>
 <tr>
@@ -77,7 +74,9 @@
 	<td colspan="2">{{ Form::submit('save') }}</td>
 </tr>
 </table>
+-->
 
-{{ Form::close() }}
+
+
 
 @stop

@@ -1,6 +1,5 @@
 @extends('admin.master')
 @section('content')
-
  <div id="page-wrapper">
 
         <div class="row">
