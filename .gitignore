@@ -1,2 +1,4 @@
 app/config/database.php
 vendor
+.DS_Store
+composer.lock
