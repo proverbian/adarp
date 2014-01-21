@@ -6,12 +6,13 @@ use Illuminate\Auth\Reminders\RemindableInterface;
 class Users extends Eloquent implements UserInterface, RemindableInterface {
 	protected $table = 'adarp_users';
 	protected $fillable = array('id','user_id');
-
+	
 	public function usermeta () {
 		return $this->HasMany('Usermeta','user_id');
 	}
+	
 	public function profile () {
-		return $this->HasOne('GetProfile','user_id');
+		return $this->HasOne('Profile','user_id');
 	}
 
 	public static function validate($all,$rules) 
@@ -19,11 +20,10 @@ class Users extends Eloquent implements UserInterface, RemindableInterface {
 		return Validator::make($all,$rules);	
 	}
 
-	public static function update_pass() 
-	{
-		
+	public  function getActiveUsers () 
+	{	
+		return Users::where('activated',1)->select('id')->count();
 	}
-	
 
 	//Auth::
 	public function getAuthIdentifier()

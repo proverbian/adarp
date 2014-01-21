@@ -78,7 +78,7 @@
 						@foreach ($users as $user) 
 						<tr id="row{{$user->id}}">
 							<td> <a href="user/{{$user->id}}">{{ $user->username }} </a></td>
-							<td> {{ $user->username }} </td>
+							<td> {{ $user->profile->last_name }}, {{ $user->profile->first_name }} </td>
 							<td> <a href="user/{{$user->id}}/edit"> Edit </a></td>
 							<td>
 								@if ($user->suspended_at)

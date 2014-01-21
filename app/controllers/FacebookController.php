@@ -58,7 +58,7 @@ class FacebookController extends Controller {
 	 		
 	 		$last_id = $user->id; //get last ID
 
-	 		$profile = new GetProfile;
+	 		$profile = new Profile;
 	 		$profile->user_id = $last_id;
 	 		$profile->name = $me['first_name']. ' '.$me['last_name'];
 	 		$profile->first_name = $me['first_name'];

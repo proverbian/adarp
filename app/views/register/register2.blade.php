@@ -12,14 +12,8 @@ body { padding-top:50px; }
 
 
 <div class="container">
-
-
-
-
     <div class="row">
-     
         <div class="col-xs-12 col-sm-offset-4 col-md-5 well well-sm">
-        
                 @if (Session::has('email_exists'))
                     <div class="well well-sm">
                         <span class="error">Email Already Used, Please Contact Support <br />
@@ -27,12 +21,11 @@ body { padding-top:50px; }
                         </span>
                     </div>
                 @endif
-
-                 @if (Session::has('email_not_same'))
+                @if (Session::has('email_not_same'))
                     <div class="well well-sm">
                         <span class="error">Email doesn't Match! Be Sure you Typed the same email.<br />
                         </span>
-                    </div>
+                    </divg>
                 @endif
             <legend>Sign up! <p class="already_reg">Already Registered? <a href="login">Login Here</a></p></legend>
             <form action="#" method="post" class="form" role="form">

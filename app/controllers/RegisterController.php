@@ -17,11 +17,9 @@ class RegisterController extends BaseController {
  
  	 $v =  Users::validate(Input::all(), $rules);
  	 if (Input::get('email') != Input::get('email_confirmation')) {
- 	 
- 	 	return Redirect::to('register')->with('email_not_same',true);
- 	 		dd('test');
+ 	 	return Redirect::to('register')->with('email_not_same',true); 	 		
  	 }
- 	 dd('we');
+
 	if ($v->passes()) :
 		$check = Users::where('username','=',Input::get('email'))
 				//->where('activated','<>',1)
@@ -50,7 +48,7 @@ class RegisterController extends BaseController {
 				->with('email_exists',true);
 		endif;
 	else:
-		return Redirect::to('notifications')
+		return Redirect::to('register')
 					->with('use_valid_email',true);
 	endif;
 	}

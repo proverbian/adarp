@@ -36,7 +36,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li><a href="{{ URL::to('admin/users') }}"><i class="fa fa-bar-chart-o"></i> Users</a></li>
-            <li><a href="#"><i class="fa fa-table"></i> Reports</a></li>
+            <li><a href="{{ URL::to('admin/reports') }}"><i class="fa fa-table"></i> Reports</a></li>
             <li><a href="news/edit"><i class="fa fa-edit"></i> Posts</a></li>
            <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-caret-square-o-down"></i> Dropdown <b class="caret"></b></a>

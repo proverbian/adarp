@@ -34,8 +34,15 @@ class AdminController extends BaseController {
 
 	public function get_user($id,$action=NULL)
 	{
+
+		$user = Users::with('profile','usermeta')->first();
+
+		dd($user->usermeta);
+		
 			
-		$profile = GetProfile::get_user_profile($id); //get profile in model
+			dd();
+		$profile = Profile::get_user_profile($id); //get profile in model
+		
 		if ($profile['added_new_profile']) {
 			return Redirect::to('admin/user/'.$id);
 		}
@@ -57,9 +64,8 @@ class AdminController extends BaseController {
 
 	public function post_user($id) {
 		$user_id = Input::get('user_id');
-				
-		$update_user = GetProfile::post_user_profile($user_id);
-
+					
+		$update_user = Profile::post_user_profile($user_id);
 
 		if ($update_user):
 			return Redirect::to('admin/user/'.$user_id)
@@ -71,7 +77,7 @@ class AdminController extends BaseController {
 	{
 
 		if (is_numeric($id)) { //if user profile is clicked3
-			$prof = GetProfile::where('user_id',$id)->first();
+			$prof = Profile::where('user_id',$id)->first();
 					$usermeta = Usermeta::where('user_id',$id)->get();
 					foreach ($usermeta as $meta) {
 						$umeta[$meta->key_id] = $meta->value;
@@ -85,18 +91,17 @@ class AdminController extends BaseController {
 				
 		if ($action=='edit') {
 			//$userOrders = Controller::call('Profile@getEdit');
-		return App::make('Profile')->getEdit($id);
-				
-
-		
+			return App::make('Profile')->getEdit($id);
 		}
 		//default display 10 users
-		$users = DB::table('adarp_users')
+
+		$users = Users::with('profile')
 			->take(10)
 			->where('deleted_at',NULL)
 			->select('id','username','suspended_at','deleted_at')
 			->orderBy('id','desc')
 			->get();
+	
 		
 		return View::make('admin.users')
 		//->with('id',$id)
@@ -127,7 +132,7 @@ class AdminController extends BaseController {
 			$user->activated = 1;
 			$user->save();
 				
-			$profile = new GetProfile(); //add adarp_profile
+			$profile = new Profile(); //add adarp_profile
 			$profile->user_id =  $user->id;
 			$profile->save();
 
@@ -135,6 +140,41 @@ class AdminController extends BaseController {
 		}
 
 	}
+	
+	public function get_reports() 
+	{
+
+		//$att = Reports::attendance();
+		//$users = Homecoming::select('user_id')->get();
+
+		//foreach ($users as $user)
+		//{
+		//	echo $user->profile->user_id;
+		//}
+
+		// dd(DB::getQueryLog());
+		//echo $pro->user_id;
+		//dd($pro);
+		
+		//$profilesearch  = Profile::where('value','like','Valencia%')->get();
+	//	$metasearch = Usermeta::where('value','like','Valencia%')->with('profile')->get();
+
+
+		return View::make('reports.reports');
+		
+
+
+		// select count(id) as school,value from adarp_usermeta where `key_id` = 'highschool' group by value order by school desc
+
+		$cnt = Users::count();
+		
+	}
+
+	public function get_report_search () 
+	{
+		
+	}
+
 
 
 	public function showWelcome()
